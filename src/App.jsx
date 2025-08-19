@@ -7,15 +7,15 @@ export default function Dial() {
 
   const rotateDial = () => {
     setRotation((prev) => prev + 90);
-    // Add haptic vibration (on supported phones)
+    // Phone vibration for realism (only works on supported devices)
     if (navigator.vibrate) navigator.vibrate(40);
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-black">
-      {/* Dial container */}
+      {/* Dial */}
       <div
-        className="relative w-64 h-64 rounded-full shadow-xl"
+        className="relative w-64 h-64 rounded-full shadow-2xl"
         style={{
           transform: `rotate(${rotation}deg)`,
           transition: "transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1)",
@@ -26,19 +26,19 @@ export default function Dial() {
         }}
         onClick={rotateDial}
       >
-        {/* Outer grip ring */}
+        {/* Outer leather grip */}
         <div
-          className="absolute inset-0 rounded-full border-[20px]"
+          className="absolute inset-0 rounded-full border-[24px]"
           style={{
             borderImage: `url('https://ambientcg.com/get?file=Leather026_2K_Color.jpg') 60 round`,
           }}
         ></div>
 
-        {/* Radial grooves (simulated) */}
+        {/* Radial grooves */}
         {[...Array(60)].map((_, i) => (
           <div
             key={i}
-            className="absolute left-1/2 top-1/2 w-[2px] h-[16px] bg-gray-900 opacity-50"
+            className="absolute left-1/2 top-1/2 w-[2px] h-[26px] bg-gray-900 opacity-60"
             style={{
               transform: `rotate(${i * 6}deg) translateY(-120px)`,
               transformOrigin: "center bottom",
@@ -47,16 +47,16 @@ export default function Dial() {
         ))}
       </div>
 
-      {/* Labels outside */}
+      {/* Labels outside dial */}
       <div className="relative mt-8 w-64 h-64">
         {labels.map((label, i) => (
           <div
             key={i}
-            className="absolute text-white text-sm font-semibold"
+            className="absolute text-white text-sm font-bold"
             style={{
               left: "50%",
               top: "50%",
-              transform: `rotate(${i * 90}deg) translate(120px) rotate(-${
+              transform: `rotate(${i * 90}deg) translate(135px) rotate(-${
                 i * 90
               }deg)`,
               transformOrigin: "center center",
