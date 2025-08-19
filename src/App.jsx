@@ -58,21 +58,36 @@ export default function App() {
       <div className="relative w-64 h-64 mb-8">
         <motion.div
           ref={dialRef}
-          className="absolute inset-0 rounded-full shadow-2xl"
+          className="absolute inset-0 rounded-full"
           style={{
             background:
-              "radial-gradient(circle at 30% 30%, #444, #111 70%), repeating-radial-gradient(circle, #222 0 2px, transparent 2px 6px)",
-            border: "8px solid #666",
+              "radial-gradient(circle at 30% 30%, #444, #111 70%)",
+            border: "6px solid #666",
             boxShadow:
-              "inset 0 0 10px rgba(0,0,0,0.8), 0 4px 20px rgba(0,0,0,0.6)",
+              "inset 0 0 20px rgba(0,0,0,0.9), 0 4px 25px rgba(0,0,0,0.7)",
           }}
           animate={{ rotate: angle }}
           transition={{ type: "spring", stiffness: 200, damping: 15 }}
           onMouseDown={startDrag}
           onTouchStart={startDrag}
         >
-          {/* Grip teeth */}
-          <div className="absolute inset-[-12px] rounded-full border-[12px] border-dashed border-gray-500/60"></div>
+          {/* Radial grooves */}
+          {[...Array(40)].map((_, i) => {
+            const rot = (i * 360) / 40;
+            return (
+              <div
+                key={i}
+                className="absolute left-1/2 top-1/2 w-[2px] h-[30%] bg-gray-600/70"
+                style={{
+                  transform: `rotate(${rot}deg) translateY(-45%)`,
+                  transformOrigin: "center top",
+                }}
+              />
+            );
+          })}
+
+          {/* Gloss highlight */}
+          <div className="absolute inset-0 rounded-full bg-gradient-to-t from-transparent via-white/10 to-transparent pointer-events-none"></div>
 
           {/* Center button */}
           <div className="absolute inset-[30%] rounded-full bg-neutral-800 shadow-inner flex items-center justify-center">
@@ -84,9 +99,9 @@ export default function App() {
         {sections.map((label, i) => {
           const pos = [
             { top: "-2rem", left: "50%", transform: "translateX(-50%)" }, // top
-            { right: "-2.5rem", top: "50%", transform: "translateY(-50%)" }, // right
+            { right: "-2.8rem", top: "50%", transform: "translateY(-50%)" }, // right
             { bottom: "-2rem", left: "50%", transform: "translateX(-50%)" }, // bottom
-            { left: "-2.5rem", top: "50%", transform: "translateY(-50%)" }, // left
+            { left: "-2.8rem", top: "50%", transform: "translateY(-50%)" }, // left
           ];
           return (
             <button
